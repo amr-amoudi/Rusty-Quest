@@ -13,7 +13,7 @@ pub mod all_entities {
                name,
                gold,
                damage_multiplayer,
-           } 
+           }
         }
         
     }

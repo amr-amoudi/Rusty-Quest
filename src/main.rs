@@ -5,7 +5,8 @@ mod actions;
 use entities::all_entities::*;
 use crate::utils::input::input_string;
 use crate::utils::clear_terminal::clear;
-use crate::actions::game_actions::actions::fight::start_fight;
+use crate::actions::game_actions::all_game_actions::*;
+
 
 fn main() {
     println!("🦀 Welcome to Rusty Quest");
@@ -18,13 +19,22 @@ fn main() {
     match want_to_fight.as_str() {
         "yes" => {
             clear();
-            start_fight(&mut my_player, &mut worm);
+            fight::start_fight(&mut my_player, &mut worm);
         },
         "no" => println!("no he doesn't want to"),
         _ => println!("unexpected error"),
     }
+
+    let want_to_heal = input_string(String::from("do you want to heal? yes/no"));
     
-    
+    match want_to_heal.as_str() {
+        "yes" => {
+            clear();
+            heal::start_heal(&mut my_player);
+        },
+        "no" => println!("no"),
+        _ => println!("unexpected error"),
+    }
     
     if my_player.health <= 0 {
         println!("you lost");

@@ -1,4 +1,4 @@
-pub mod actions {
+pub mod all_game_actions {
     pub mod fight {
         use crate::entities::all_entities::monsters::Monster;
         use crate::entities::all_entities::player::Player;
@@ -44,6 +44,33 @@ pub mod actions {
                     break;
                 }
             }
+        }
+    }
+    
+    pub mod heal {
+        use crate::entities::all_entities::player::Player;
+        use crate::utils::clear_terminal::clear;
+
+        pub fn start_heal(player : &mut Player) {
+            
+            if player.health >= 100 {
+                println!("you have full heal");
+                return;
+            }
+            
+            let discounted_gold = if player.gold < 50  { rand::random_range(1..player.gold) } else { rand::random_range(1..50) };
+            player.gold -= discounted_gold;
+            
+            if player.health + 25 > 100 {
+                player.health = 100;
+            }else { 
+                player.health += 25;
+            }
+            
+            clear();
+            println!("-{discounted_gold} gold");
+            println!("you health now is {}", player.health);
+            println!("your current gold balance is {}", player.gold);
         }
     }
 }
